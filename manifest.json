@@ -1,0 +1,37 @@
+{
+  "id": "./",
+  "name": "Праздник.яр — детские праздники Ярославля",
+  "short_name": "Праздник.яр",
+  "description": "Поиск, подбор и конструктор детских праздников в Ярославле.",
+  "lang": "ru",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#fbfaff",
+  "theme_color": "#6846e8",
+  "categories": [
+    "lifestyle",
+    "shopping"
+  ],
+  "icons": [
+    {
+      "src": "./icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

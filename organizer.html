@@ -1,0 +1,41 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Кабинет организатора — Праздник.яр</title><style>
+:root{--ink:#24233a;--muted:#77788f;--purple:#6c4cf1;--pale:#f3f0ff;--line:#e9e7f2;--bg:#fbfaff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
+a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}.wrap{width:min(1120px,calc(100% - 30px));margin:auto}
+header{position:sticky;top:0;background:#ffffffed;backdrop-filter:blur(14px);border-bottom:1px solid var(--line);z-index:5}
+nav{height:66px;display:flex;align-items:center;gap:10px}.brand{font-weight:850;font-size:17px;display:flex;align-items:center;gap:9px}
+.logo{width:39px;height:39px;border-radius:13px;background:linear-gradient(135deg,#947aff,#5d3de5);color:#fff;display:grid;place-items:center;font-size:22px}
+.back{margin-left:auto;background:var(--pale);color:#6548e8;padding:10px 13px;border-radius:12px;font-weight:750}
+.hero{margin:18px auto;padding:27px;border-radius:25px;color:white;background:linear-gradient(120deg,#211653,#5434c5 60%,#9277ff);position:relative;overflow:hidden}
+.hero:after{content:"🎈";position:absolute;right:6%;top:0;font-size:100px}.hero p{color:#e7e0ff;max-width:650px;line-height:1.5}
+h1{font-size:clamp(29px,5vw,46px);line-height:1.05;margin:8px 0;letter-spacing:-1px}h2{font-size:23px;margin:0 0 8px}
+.panel,.block{background:#fff;border:1px solid var(--line);border-radius:17px;padding:16px;margin:13px 0}
+.btn{background:var(--purple);color:white;border:0;border-radius:12px;padding:11px 14px;font-weight:750}.light{background:var(--pale);color:#6548e8}
+.field{width:100%;padding:11px;border:1px solid var(--line);border-radius:11px;background:white;color:var(--ink)}
+label{display:block;font-size:12px;font-weight:750;margin:0 0 6px}.muted{font-size:12px;color:var(--muted);line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.offer{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}.offer img{width:100%;height:115px;object-fit:cover}.offer .body{padding:10px}
+.offer h3{font-size:13px;line-height:1.3;margin:0 0 7px}.price{color:#6044df;font-weight:850}
+@media(max-width:650px){.wrap{width:calc(100% - 22px)}.hero{padding:22px 16px;margin:12px auto}.hero:after{font-size:68px;right:0}.hero p{max-width:78%;font-size:13px}.grid{gap:8px}.offer img{height:95px}.panel,.block{padding:12px}}
+
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.stat{background:#f4f0ff;padding:14px;border-radius:14px}.stat strong{display:block;color:#6245e5;font-size:22px;margin-top:5px}
+.tabs{display:flex;gap:7px;overflow:auto;margin:15px 0}.tabs button{white-space:nowrap;border:1px solid var(--line);border-radius:11px;padding:10px;background:white;font-weight:750}.tabs button.active{background:#6c4cf1;color:white}
+.listing{display:flex;gap:10px;align-items:center;border:1px solid var(--line);padding:10px;border-radius:14px;margin:9px 0}.listing img{width:66px;height:66px;object-fit:cover;border-radius:10px}
+</style></head><body><header><nav class="wrap"><a class="brand" href="index.html"><span class="logo">✦</span>Праздник.яр</a><a class="back" href="index.html">← На главную</a></nav></header>
+<main class="wrap"><section class="hero"><span>ПАРТНЁРАМ ПРАЗДНИК.ЯР</span><h1>Кабинет организатора</h1><p>Публикуй предложения, редактируй карточки и следи за заявками.</p></section>
+<div class="stats"><div class="stat"><span class="muted">Предложения</span><strong id="n">0</strong></div><div class="stat"><span class="muted">Комиссия сервиса</span><strong>5%</strong></div></div>
+<div class="tabs"><button class="active" onclick="tab('list',this)">Мои предложения</button><button onclick="tab('new',this)">＋ Добавить</button><button onclick="tab('requests',this)">Заявки</button><button onclick="tab('profile',this)">Профиль</button></div><div id="content"></div>
+<div class="panel muted">Демо-режим: данные сохраняются в браузере и доступны конструктору на этом устройстве. Реальные заявки, календарь, выплаты и публикация на всех устройствах требуют серверной части.</div></main>
+<script>
+const KEY='prazdnik_yar_organizer_listings_v1',read=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){return []}},save=a=>{localStorage.setItem(KEY,JSON.stringify(a));refresh()};
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function tab(name,btn){document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));if(btn)btn.classList.add('active');let c=document.getElementById('content');
+if(name==='new'){c.innerHTML=`<section class="panel"><h2>Новое предложение</h2><form id="form"><label>Название</label><input class="field" name="title" required placeholder="Например, научное шоу"><br><br><label>Категория</label><select class="field" name="category"><option>Аниматор</option><option>Площадка</option><option>Шоу-программа</option><option>Мастер-класс</option><option>Фотограф</option><option>Декор и торт</option><option>Другое</option></select><br><br><label>Описание</label><textarea class="field" name="description" rows="4" required></textarea><br><br><div class="grid"><div><label>Цена, ₽</label><input class="field" name="price" type="number" min="0" required></div><div><label>Район</label><select class="field" name="district"><option>Кировский</option><option>Ленинский</option><option>Дзержинский</option><option>Фрунзенский</option><option>Заволжский</option></select></div></div><br><label>Адрес</label><input class="field" name="address"><br><br><label>URL фотографии (необязательно)</label><input class="field" name="photo" type="url" placeholder="https://..."><br><br><button class="btn">Сохранить предложение</button></form></section>`;
+document.getElementById('form').onsubmit=e=>{e.preventDefault();let f=new FormData(e.target),a=read();a.push({id:Date.now(),title:f.get('title'),category:f.get('category'),description:f.get('description'),price:+f.get('price'),district:f.get('district'),address:f.get('address'),photos:f.get('photo')?[f.get('photo')]:[]});save(a);tab('list',document.querySelector('.tabs button'));alert('Сохранено. Предложение появится в конструкторе на этом устройстве.')}}
+else if(name==='requests'){c.innerHTML='<section class="panel"><h2>Заявки</h2><p class="muted">Пока заявок нет. Здесь будут отображаться запросы родителей после подключения серверной системы бронирования.</p></section>'}
+else if(name==='profile'){c.innerHTML='<section class="panel"><h2>Профиль студии</h2><label>Название студии</label><input class="field" id="studio"><br><br><label>Телефон</label><input class="field" id="phone"><br><br><label>Описание</label><textarea class="field" id="about" rows="4"></textarea><br><br><button class="btn" onclick="localStorage.setItem(\'prazdnik_yar_org_profile\',JSON.stringify({studio:document.getElementById(\'studio\').value,phone:document.getElementById(\'phone\').value,about:document.getElementById(\'about\').value}));alert(\'Профиль сохранён\')">Сохранить</button></section>';let p=JSON.parse(localStorage.getItem('prazdnik_yar_org_profile')||'{}');studio.value=p.studio||'';phone.value=p.phone||'';about.value=p.about||''}
+else{let a=read();c.innerHTML='<section class="panel"><h2>Мои предложения</h2><button class="btn" onclick="tab(\'new\',document.querySelectorAll(\'.tabs button\')[1])">＋ Добавить предложение</button>'+(a.length?a.map(x=>`<div class="listing"><img src="${esc(x.photos?.[0]||'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=300&q=80')}"><div style="flex:1"><b>${esc(x.title)}</b><div class="muted">${esc(x.category)} · ${esc(x.district)}</div><b class="price">${(+x.price).toLocaleString('ru-RU')} ₽</b></div><button class="btn light" onclick="del(${x.id})">Удалить</button></div>`).join(''):'<p class="muted">Пока предложений нет — добавь первое.</p>')+'</section>'}}
+function del(id){if(confirm('Удалить предложение?'))save(read().filter(x=>x.id!==id))}
+function refresh(){document.getElementById('n').textContent=read().length}
+tab('list',document.querySelector('.tabs button'));refresh();
+</script></body></html>
